@@ -24,7 +24,7 @@ namespace ProblematicProblem
             int userAge = int.Parse(Console.ReadLine());
             Console.WriteLine();
             Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
-            bool seeList = bool.Parse(Console.ReadLine());
+            bool seeList = Console.ReadLine() == "Sure";
             if (seeList)
             {
                 foreach (string activity in activities)
