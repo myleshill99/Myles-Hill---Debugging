@@ -17,11 +17,15 @@ namespace ProblematicProblem
 
             Console.Write("We are going to need your information first! What is your name? ");
             string userName = Console.ReadLine();
-
+            int userAge = 0;
             Console.WriteLine();
 
             Console.Write("What is your age? ");
-            int userAge = int.Parse(Console.ReadLine());
+            while (int.TryParse(Console.ReadLine(), out userAge) == false)
+            {
+                Console.WriteLine("Age must be an integer");
+            }
+
             Console.WriteLine();
             Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
             bool seeList = Console.ReadLine() == "Sure";
@@ -81,9 +85,10 @@ namespace ProblematicProblem
                     randomNumber = rnd.Next(activities.Count);
                     randomActivity = activities[randomNumber];
                 }
-                Console.Write($"Ah got it! {randomActivity}, your random activity is: {userName}! Is this ok or do you want to grab another activity? Keep/Redo: ");
+                Console.Write($"Ah got it! {userName}, your random activity is: {randomActivity}! Is this ok or do you want to grab another activity? Keep/Redo: ");
                 Console.WriteLine();
-                bool cont = bool.Parse(Console.ReadLine());
+                var continueInput = Console.ReadLine();
+                cont = continueInput.ToLower() != "keep";
             }
         }
     }
