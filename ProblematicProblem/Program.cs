@@ -1,6 +1,9 @@
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Threading;
+using System.Transactions;
 
 namespace ProblematicProblem
 {
@@ -28,7 +31,7 @@ namespace ProblematicProblem
 
             Console.WriteLine();
             Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
-            bool seeList = Console.ReadLine() == "Sure";
+            bool seeList = Console.ReadLine().ToLower() == "sure";
             if (seeList)
             {
                 foreach (string activity in activities)
@@ -39,7 +42,17 @@ namespace ProblematicProblem
                 Console.WriteLine();
                 if (seeList)
                 {
-                    bool addToList = bool.Parse(Console.ReadLine());
+                    //start
+                    bool addToList = false;
+                    Console.WriteLine("Would you like to add an activity? Yes/No: ");
+                    string addingToListCheck = Console.ReadLine().ToLower();
+                    if (addingToListCheck == "yes")
+                    {
+                        addToList = true;
+                    }
+                     
+
+                    //end
 
                     Console.WriteLine();
                     while (addToList)
@@ -54,7 +67,11 @@ namespace ProblematicProblem
                         }
                         Console.WriteLine();
                         Console.WriteLine("Would you like to add more? yes/no: ");
-                        addToList = bool.Parse(Console.ReadLine());
+                        string addMoreCheck = Console.ReadLine().ToLower();
+                        if (addMoreCheck == "no") 
+                        {
+                            addToList = false; 
+                        }
                     }
                 }
             }
@@ -65,19 +82,19 @@ namespace ProblematicProblem
                 for (int i = 0; i < 10; i++)
                 {
                     Console.Write(". ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(5);
                 }
                 Console.WriteLine();
                 Console.Write("Choosing your random activity");
                 for (int i = 0; i < 9; i++)
                 {
                     Console.Write(". ");
-                    Thread.Sleep(500);
+                    Thread.Sleep(5);
                 }
                 Console.WriteLine();
                 int randomNumber = rnd.Next(activities.Count);
                 string randomActivity = activities[randomNumber];
-                if (userAge > 21 && randomActivity == "Wine Tasting")
+                if (userAge < 21 && randomActivity == "Wine Tasting")
                 {
                     Console.WriteLine($"Oh no! Looks like you are too young to do {randomActivity}");
                     Console.WriteLine("Pick something else!");
